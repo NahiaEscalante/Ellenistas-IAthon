@@ -1,0 +1,45 @@
+(Transcrito por TurboScribe. Actualizar a Ilimitado para eliminar este mensaje.)
+
+La pregunta sería, el día de hoy para todos, ¿de qué manera podemos automatizar el sistema de saludo y el proceso de facturación? De tal manera que no podamos usar en ese caso un contador, porque tenemos una persona que se encarga de hacer, de digitar toda la información que la parte operativa que es ventas, registra en un dashboard que tenemos, que está en el servidor, en la página web, y este es revisado por un contador, ¿de acuerdo? Este contador lo revisa, empieza a validar y empieza a transcribirlo a otro software que nosotros compramos y pagamos de manera mensual, que se llama KeepFacil, de respecto a nuestro modelo que conocen. Es un software que te envía facturas y boletas, y nos cobra mensualmente un pago considerable, en comparación con que todos los softwares existen, entonces hay un costo. También hay un tiempo en que el personal de contabilidad se encarga de visitar, hay un tiempo considerable entre validar y poder transcribirlo a este software, ya sea su nombre, su DNI, visitar su DNI, visitar la venta que se ha realizado, visitar el GB y otros valores más, y así como transcribir finalmente el correo electrónico a donde tiene que llegar esta factura o boleta, ¿de acuerdo? Entonces, creo que todos estamos de acuerdo en que estamos hablando de un sistema de transacciones, ¿no? Correcto.
+
+Ahora, nos ha comentado lo siguiente, que hay un intermediario que se encarga de eso, un sistema transcribe para otro sistema, y eso es un huello de... Tú lo que quieres decir es que este intermediario, más que reemplazarlo, le facilite la subida de información, ¿no? Ahora, vamos a hablar de algo en general, ya sabemos que hay un punto, hay una automatización, ya tienes las clases ahí, ya le metemos para que sea esto un exceso, pero vamos a profundizar. Ahora, ¿cómo se descarga esa información? ¿En qué formato? ¿Es en Excel o es en PDF el computador? ¿Me podías contar un poco? Sí, ese software que tenemos, simplemente lo descarga una vez que el computador lo registre, mandándole toda una data a su correo finalmente, y automáticamente se va a encorrear en PDF. Pero internamente ese software también lo registra en Excel.
+
+No, una especie de registro nada más interno, pero al cliente, que es lo que nos importa. O sea, en formato PDF. O sea, ese sistema principal, el sistema core, va uno para el computador y otro para el cliente.
+
+Si me estoy entiendiendo correctamente. Pero ese sistema que tienes, ¿es una empresa ya normal o es un desarrollo formal? Está autorizado por el aznar, se llama... Si me hiciste preguntar, ¿qué es lo que hay? Hay dos plataformas, o tres en verdad, ya. Lo que yo explicaba con los chicos, el flujo son ventas y facturación.
+
+En algún momento van a interrumpir. La venta termina cuando un equipo de ventas registre todos los datos de la persona que ha hecho la operación en un desarrollo in-house, que se guarda en el servidor, que es lo que dice Manuel. Esa información solo queda ahí, guardadita, no se puede exportar.
+
+Ahí termina la venta. Bueno, de hecho la venta ya es cuando el cliente en Brasil o en Perú ya recibe su remesa. Entonces es check.
+
+Ahora viene la segunda parte. La segunda parte, ¿cuál es? La facturación o la boleta. Cuando ya se concreta toda la venta, pasamos con el equipo de contabilidad.
+
+¿Qué hace el equipo de contabilidad? Agarra el desarrollo in-house, al que le llamamos dashboard. Chapa todos esos datos y los comienza a tipear en dos plataformas. Que va a depender del remitente de la remesa.
+
+Por ejemplo, si tú haces una remesa Perú-Brasil, va a chapar Kifazi, plataforma pago. Si es remesa Brasil-Perú, va a chapar Omni, que también es una plataforma pago. Los dos, como los envíos son bidireccionales, usamos las plataformas.
+
+Ahí es donde demora todo y se arma un cuello de botella. Porque cuando yo utilizo cualquiera de las plataformas, tengo que registrar manualmente. Tengo que chapar el dashboard, tengo que ver los datos.
+
+Tengo que considerar que va a haber errores humanos, así que hay un equipo de evaluación también que va a ver. ¿Hace match? El ID de la operación hace match. Ahí ya se pierde mucho tiempo.
+
+Las operaciones se van acumulando durante el día. Ya se dan cuenta ya que esto, en el peor de los casos, en nuestros momentos más críticos, podía pasar como una semana y media o dos, hasta que el cliente que hizo su operación el 1 de octubre, recibió por ahí el 16 de octubre su boleto. Ese tipo de cuello de botella es armado.
+
+Ahorita es un poquito más ágil, pero es más ágil, no porque esté más automatizado, sino es más ágil porque ya hay más manos, hay más recursos. Improvisan y acelizan las tareas, pero igual sigue siendo más rápido. Es así como conviven estos tres sistemas.
+
+¿Crees que podamos...? La idea pica aquí, creo que para que todos puedan entender el producto, es hacer como una pizarra y ver... ¿Tengo la lámina? ¿Tengo la lámina? ¿Puedo poner la lámina? ¿Lo podés compartir? ¿Tenemos un meet? Tal cual, sí. Eso. Mejor ya... Pero, no sé, creo que interrumpimos porque creo que todos nos íbamos a poner la lámina.
+
+Ah, sí. Estaba mirando directamente. Sí, sí.
+
+Entonces, ¿cómo se presentan? ¿Por equipos? ¿Por personas? ¿Qué tenemos seleccionados? ¿El objetivo? Ya. ¿Estos son equipos? Ah, ya. Ya, ustedes me lo han hecho mejor.
+
+Sí, sí, sí. Te voy a dar mucho gusto. Somos el equipo de Ernesto.
+
+En mi caso, yo soy el otro sabiente. ¿Cómo puedo acompañar ahorita? Está un poco mal de salud. Igual nos acompaña por mi apoyo.
+
+Ya, ¿verdad? Ahora estoy chico. Pues, ¿cómo lo pensamos? Bueno, o sea, que somos un team, no sé en qué fracso. ¿Qué está lo que se está mirando? Ah, de lo personal.
+
+¿Qué es lo que le piden? Señor Sofánina, de madre, sabe que es feista. No le gusta mucho la guía, pero podría ser un... Sí, yo creo que lo que está pensando es que es un parte de la atracación. Sí, sí.
+
+Sí, eso es cierto. Sí. Bueno.
+
+(Transcrito por TurboScribe. Actualizar a Ilimitado para eliminar este mensaje.)

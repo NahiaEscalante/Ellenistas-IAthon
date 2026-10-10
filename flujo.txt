@@ -1,0 +1,67 @@
+(Transcrito por TurboScribe. Actualizar a Ilimitado para eliminar este mensaje.)
+
+Aquí en la ganchilla está un video detallado, muy detallado, de cómo comienza todo el surfo. Un poquito como para que te den un poco de contexto de cómo funciona el proceso de ventas hasta la facturación. Entonces, en el surfo de ventas comenzamos con la cotización, y tenemos a la página de DraftPers.
+
+La página de DraftPers, idealmente debería tener un agente, pero no lo tiene. Ese es un desarrollo para 2027. Ustedes pueden cotizar o ver el precio del mercado cuando lleguen a su oferencia de PwC.
+
+Cuando ya cotizan su monto y su precio, esto les va a mandar, como indica acá, al canal de WhatsApp. Cuando llegue la operación, o bueno, la cotización al canal de WhatsApp, el equipo de DraftPers de ventas va a chapar, ordenadamente van a chapar la operación que corresponda. Ahí van a ingresar un buen momento.
+
+Ahí es donde el equipo de ventas recoge toda la información del cliente. Datos, operaciones, incluso se puede negociar el precio que se produce en la página web. Después de esto, se encierra el negocio, se hace el envío.
+
+De hecho, antes de eso, en la etapa de negocio de la negociación, el equipo de ventas dice, ya, dame tu cuenta, BCP o idioma, lo que sea, dame la cuenta en Brasil para yo hacer el depósito. Se tienen que generar esos datos, la operación se cierra, y cuando ya se cierre, oye, te voy a mandar mil soles, ya, a Brasil le va a llegar 900 reales, fue una comisión. Solo se cierra la operación cuando ya el destinatario ya tiene sus cuentas, el monto.
+
+Esa información no se queda solo en la cadenita del equipo de ventas, sino que viaja a una plataforma que fue desarrollada por este brazo, al que le llamamos Dashboard. No vaya a pensar que es un juego de DIY, sino que así se llama. ¿Tienes el Dashboard del Raspberr para verlo? ¿Cómo? ¿Ese Dashboard del Raspberr? Ah, si quieres monar este... ¿Cómo es el Dashboard? Sí, explica primero, luego le enseñamos, porque tiene que entrar en contexto.
+
+¿Ese Dashboard es interno? Sí, propio. Desarrollo propio. Al fin, chicos, duda, consulta.
+
+Visualmente. ¿Visualmente el proyecto? Sí, le puedo mandar el pantallazo. Nosotros tenemos un Dashboard que es propio, que lo ha generado, lo ha creado nuestra personal de TI.
+
+Creo que puede poner Jesús cerca a la ventana. No tengo red. Compartir.
+
+No, aquí no tengo red. Por la ventana. ¿Ahora sí? Sí.
+
+Hasta ahí. ¿Me puedo mandar el pantallazo? Sí, por favor. En este grupo de eventos nada más se dan cuenta que hay diferentes canales.
+
+Desde la liquidación del canal de WhatsApp, que debería ser hecho un desarrollo propio de la plataforma. No, solo en el canal, solo dicho en la página web ya debería terminar hasta la frecuencia de internet, pero no, se tiene que ayudar a avanzar, entonces ahí se hace un poquito más manual. Pero esto es un problema que no vamos a resolver hoy, lo único que vamos a tratar de resolver en estas presentaciones va a ser lo de facturación.
+
+¿Quién pudiste hablar? ¿Quién pudiste hablar? Hasta ahí termina el proceso de vendida. Quedamos en que toda la información queda guardada en esa plataforma de desarrollo Browser. ¿Cómo nos va con el grupo de facturación? Para la facturación necesitamos tener todos esos datos que hemos registrado en el dashboard, para nosotros poder hacerlo viajar a dos posibles plataformas.
+
+Antes de eso tenemos que asegurarnos de que la información del monto de transferencia, el documento del cliente a quien se le va a enviar, entre otras informaciones que tienen clares en el documento. Tenemos clara esa información y dependiendo si va a ser una remesa de Perú a Brasil o de Brasil a Perú, vamos a seleccionar o KeyFacil o GOMI, como dice ahí en la presentación. Estos datos, gracias a Manuel, no hay un canal que conecte Dashboard con KeyFacil o GOMI.
+
+¿Por cada transacción, qué tiene que hacer y traer? Hay un monitor que levanta KeyFacil, ¿verdad Tami? Si en un día tuvieramos 1000 movimientos de transacciones, los mismos... Esperemos que lleguemos a los 1000, ahorita estamos en 60. Pero cuando lleguemos a ese punto, va a ser claramente un juego de... ¿Por cada transacción, cuánto tiempo demorará el proceso? Como les mencionaba antes, llegamos hasta la semana y media. Hoy se ha tratado de reducir, demoramos 2 o 3 días.
+
+Aún así sigue siendo mucho. ¿Hay algún margen de detalle para poder registrarlo en esa plataforma? No, no. No tenemos una penalidad por si se demora 3, 4 o 5 días.
+
+Pero sí nos absorbe, nos hace invertir mucho personal en esas validaciones, en ese caso de información. ¿En contabilidad? De hecho, antes no había un equipo de contabilidad. O sí, solo había una personalidad.
+
+Porque lo demás lo hacía el equipo de venta. Pero como se han ido incrementando las operaciones, a veces nos dejamos tranquilos. Y nos hemos cargado a 2 o 3 datos o personas en el equipo de contabilidad.
+
+Y hay un proceso. Cuando ya tenemos todo cargado en las plataformas, esta de Okifacil o OMI. La descarga de la boleta de los factores es fácil, es rápido.
+
+Ahí no hay problema. Y después de eso ya se entrega en formato PDF al cliente. Por correo o por whatsapp.
+
+Los desarrollos sí existen. Pero, le entré inicialmente a mi hermano. Fue un poco manual.
+
+De hecho no había ni una página ni un equipo. Él se contactó con una persona para comenzar a hacer juguitos más ágiles. En ese camino de comenzar a hacer juguitos más ágiles, también fue creciendo el equipo.
+
+Había muchas manos manuales. O bueno, hacían trabajo manual. Y mi hermano en ese momento lo más fácil que tenía era... La chapa manual creo que sí se puede exportar.
+
+Así que mejor enfoquémonos en comprar plataformas para hacer la facturación. Plataformas para decir, Perú. En ese momento quizás la carga no era mucha.
+
+Hablábamos de 5 o 10 operaciones al día. Igual seguía siendo rentable. Pero a estas alturas de la vía o del camino.
+
+Nos hemos dado cuenta que ya... Si hubiésemos sido visionarios como Diana. En hacer una herramienta un poquito más robusta. Que recable sin problemas otras plataformas que nosotros hubiésemos querido.
+
+Quizás no estuviesemos acá. ¿Y es algo que tiene sentido en tercero? ¿Podemos acceder a la base de datos de esta misma? ¿O alguna interfaz? Yo creo que la interfaz sí. ¿A la información? No, porque es datos sensibles.
+
+¿Proveen alguna API para esto? ¿Para poder vender información? Nuestra API son las personas. Son las personas de vender. Sí.
+
+Eso lo debe detallar el contador. Porque sincero, yo todavía no he metido en este mundo así mucho detalle. ¿Además de meternos en la información de Word? ¿O qué? ¿Qué otra cosa más? Cuando... ¿Pueden poner un poco el Dashboard? Sí.
+
+¿Y eso? Sí. ¿Hacemos? Ahora. ¿Hacemos? Ahora.
+
+¿Están escuchando? Sí. Bien. ¿Presención? ¿Presención? Sí.
+
+Gracias. Gracias.
+
+(Transcrito por TurboScribe. Actualizar a Ilimitado para eliminar este mensaje.)
