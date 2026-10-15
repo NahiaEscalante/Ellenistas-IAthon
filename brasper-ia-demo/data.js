@@ -243,9 +243,87 @@
   totals.roi = r2((totals.revenue - totals.spend) / totals.spend * 100);
   totals.cac = r2(totals.spend / totals.clients);
 
+  /* ---------- Match en vivo de Rastro (semana del 8 al 14 de octubre) ----------
+     Señales por persona que dejaron las campañas y clientes nuevos de esa semana en el dashboard.
+     Los tres clientes de Meta son los de "Alerta soles" generados arriba; el resto se agrega aquí para cubrir cada tipo de llave.
+     No usa rnd(): así no cambia ningún otro número de la demo. Teléfonos y correos son ficticios;
+     los hash son SHA-256 reales del teléfono en E.164 o del correo en minúsculas, recortados. */
+  const WEEK = [new Date(2026, 9, 8), new Date(2026, 9, 14)];
+  const weekShare = c => {
+    const a = Math.max(c.start, WEEK[0]), b = Math.min(c.end, WEEK[1]);
+    return b < a ? 0 : ((b - a) / DAY + 1) / ((c.end - c.start) / DAY + 1);
+  };
+  const camp = (id, extra) => { const c = CAMPAIGNS.find(x => x.id === id), k = weekShare(c); return Object.assign({ id, ch: c.ch, name: c.name, spend: Math.round(c.spend * k), clicks: Math.round(c.clicks * k) }, extra); };
+  const gen = (id, extra) => { const c = CLIENTS.find(x => x.id === id); return Object.assign({ id, name: c.name, docType: c.docType, city: c.city, ops: c.ops.length, com: c.revenue }, extra); };
+  const MATCH = {
+    range: '8 – 14 oct', total: 14,
+    camps: [
+      camp('C13', { platform: 'Meta Ads', short: 'Alerta soles' }),
+      camp('C02', { platform: 'Click-to-WhatsApp', short: 'Siempre activa SP' }),
+      camp('C12', { platform: 'TikTok Ads', short: 'Envía en minutos' }),
+      { id: 'EV', ch: 'events', platform: 'Evento', name: 'Feria en la Embajada', short: 'Feria Embajada', note: 'QR con cupón EMBAJADA10 · 11 oct' }
+    ],
+    // Clientes nuevos de la semana, como aparecen en el dashboard (más reciente primero)
+    clients: [
+      { id: 'U0128', name: 'Gabriela Rojas Paredes', docType: 'DNI', city: 'São Paulo', reg: '13/10 21:35', phone: '+51 962 504 118', email: 'gabriela.rojasp@hotmail.com', tag: 'Seguimiento', ops: 1, com: 31.40 },
+      gen('U0124', { reg: '13/10 20:44', phone: '+51 953 870 219', email: 'fe.ferreira.b@gmail.com', tag: '' }),
+      { id: 'U0129', name: 'Kevin Paredes Chávez', docType: 'DNI', city: 'Lima', reg: '12/10 17:20', phone: '+51 989 117 042', email: 'kevin.paredes.ch@gmail.com', tag: 'Cliente nuevo Referido', ops: 1, com: 19.80, none: 'referido' },
+      gen('U0125', { reg: '12/10 05:27', phone: '+51 944 310 772', email: 'larissa.souza.oli@gmail.com', tag: 'Cliente Nuevo Formulario' }),
+      { id: 'U0127', name: 'Beatriz Gomes Rocha', docType: 'CE', city: 'Lima', reg: '11/10 12:05', phone: '+51 951 228 640', email: 'bia.gomesrocha@gmail.com', tag: '', ops: 1, com: 28.60 },
+      { id: 'U0126', name: 'Wilmer Huamán Rojas', docType: 'DNI', city: 'São Paulo', reg: '10/10 22:30', phone: '+55 11 98741-4417', email: 'wilmer.huaman@gmail.com', tag: 'Cliente nuevo general', ops: 1, com: 23.10 },
+      { id: 'U0130', name: 'Ana Clara Martins Lima', docType: 'CE', city: 'Lima', reg: '09/10 15:02', phone: '+51 940 662 381', email: 'anaclara.martins@outlook.com', tag: '', ops: 1, com: 42.15, none: 'orgánico' },
+      gen('U0123', { reg: '09/10 09:38', phone: '+51 987 412 305', email: 'jc.ramirez.ccori@gmail.com', tag: '' })
+    ],
+    /* Señales por persona, en orden de llegada. k1/k2: lo que se ve en la lista ([llave, texto]).
+       keys: lo que Rastro extrae; teléfono y correo van como [visible, hash].
+       casc: resultado de cada paso de la cascada [estado, nota]; los pasos que faltan no aplican a esa señal. */
+    signals: [
+      { id: 'S1', day: '09 oct', hr: '09:12', ch: 'meta', camp: 'C13', via: 'Web Brasper',
+        k1: [['click', 'fbclid=IwAR2xQ9kLm…7Tz']], k2: [['ad', 'utm_campaign=alerta_soles_pxb']],
+        keys: { click: 'fbclid IwAR2xQ9…7Tz', ad: 'Alerta soles · Feed' },
+        casc: { click: ['ok', 'touchpoint v-8f3a → registro U0123, 26 min después'] },
+        client: 'U0123', key: 'fbclid', conf: '1.00' },
+      { id: 'S2', day: '10 oct', hr: '21:47', ch: 'wa', camp: 'C02', via: 'chat desde anuncio',
+        k1: [['click', 'ctwa_clid=ARAkLx7Qp…91c']], k2: [['tel', 'wa_id +55 11 9•••• 4417'], ['ad', '"Cambia tus reales a soles"']],
+        keys: { click: 'ctwa_clid ARAkLx7…91c', tel: ['+55 11 9•••• 4417', 'sha256 40f2d5…5e4b'], ad: 'Cambia tus reales a soles' },
+        casc: { click: ['na', 'ctwa_clid dice el anuncio, no la persona'], tel: ['ok', 'mismo hash que U0126'] },
+        client: 'U0126', key: 'teléfono', conf: '0.99', fix: true },
+      { id: 'S3', day: '10 oct', hr: '23:05', ch: 'tiktok', camp: 'C12', via: 'Web Brasper',
+        k1: [['click', 'ttclid=E.C.P.v3Hk…Qa']], k2: [['ad', 'volvió el 14 oct · cotización Q-158']],
+        keys: { click: 'ttclid E.C.P.v3Hk…Qa', ad: 'Envía en minutos · For You' },
+        casc: { click: ['pend', 'touchpoint v-77b0 · cotizó Q-158, sin registro'], ai: ['lupa', 'no es cliente: buscaba un préstamo'] },
+        ai: [['Chat de Q-158', '«¿Me pueden prestar 1,000 soles?»'], ['Intención', 'préstamo, no una remesa']] },
+      { id: 'S4', day: '11 oct', hr: '11:20', ch: 'events', camp: 'EV', via: 'QR del evento',
+        k1: [['coupon', 'cupon=EMBAJADA10']], k2: [['ad', 'utm_source=evento · embajada_oct']],
+        keys: { coupon: 'EMBAJADA10', ad: 'Feria en la Embajada' },
+        casc: { coupon: ['ok', 'transaction.coupons → lo usó U0127'] },
+        client: 'U0127', key: 'cupón', conf: '1.00' },
+      { id: 'S5', day: '12 oct', hr: '05:10', ch: 'meta', camp: 'C13', via: 'Formulario',
+        k1: [['lead', 'leadgen_id=2291847730…']], k2: [['email', 'email l•••@gmail.com'], ['tel', 'tel +55 21 9•••• 0456']],
+        keys: { tel: ['+55 21 9•••• 0456', 'sha256 772f4d…5d68'], email: ['l•••@gmail.com', 'sha256 bf18be…854b'], ad: 'Alerta soles · Formulario' },
+        casc: { click: ['na', 'el formulario no pasa por la web'], tel: ['no', 'ningún cliente con ese teléfono'], email: ['ok', 'mismo hash que U0125'] },
+        client: 'U0125', key: 'correo', conf: '0.98', confirm: true },
+      { id: 'S6', day: '12 oct', hr: '14:30', ch: 'meta', camp: 'C13', via: 'Web Brasper',
+        k1: [['click', 'fbclid=IwAR7tYv0…Zx1']], k2: [['ad', 'vio la calculadora · no se registró']],
+        keys: { click: 'fbclid IwAR7tYv…Zx1', ad: 'Alerta soles · Feed' },
+        casc: { click: ['pend', 'touchpoint v-2c9e · sin registro todavía'], ai: ['na', 'no hay registro con qué comparar'] } },
+      { id: 'S7', day: '13 oct', hr: '19:55', ch: 'wa', camp: 'C02', via: 'chat desde anuncio',
+        k1: [['click', 'ctwa_clid=ARBn2Wq8…k7d']], k2: [['tel', 'perfil "Gabi Rojas" · wa_id +55 11 9•••• 6652']],
+        keys: { click: 'ctwa_clid ARBn2Wq…k7d', tel: ['+55 11 9•••• 6652', 'sha256 5da128…7ad0'], ad: 'Cambia tus reales a soles' },
+        casc: { click: ['na', 'ctwa_clid dice el anuncio, no la persona'], tel: ['no', 'ningún cliente con ese teléfono'], ai: ['review', '0.78: no llega a 0.85, lo revisa una persona'] },
+        ai: [['Nombre', '"Gabi Rojas" ≈ Gabriela Rojas Paredes'], ['Ciudad', 'São Paulo en los dos'], ['Hora', 'se registró 1 h 40 min después'], ['Monto', 'cotizó R$ 1,200 · operó R$ 1,180']],
+        client: 'U0128', alias: 'Gabi Rojas', conf: 0.78 },
+      { id: 'S8', day: '13 oct', hr: '20:21', ch: 'meta', camp: 'C13', via: 'Web Brasper',
+        k1: [['click', 'fbclid=IwAR0mPq3…c2M']], k2: [['ad', 'utm_campaign=alerta_soles_pxb']],
+        keys: { click: 'fbclid IwAR0mPq…c2M', ad: 'Alerta soles · Feed' },
+        casc: { click: ['ok', 'touchpoint v-41d7 → registro U0124, 23 min después'] },
+        client: 'U0124', key: 'fbclid', conf: '1.00' }
+    ]
+  };
+
   window.BD = {
     TODAY, MONTHS, ACCOUNTING_TODAY, TAGS, CH, CAMPAIGNS, CLIENTS, MONTHLY, COHORT,
     HOURS, LIQ, BANKS, QUOTES_HOURLY, FOLLOW_UP, LEAD_REASONS, AD_CONFUSION,
-    SEASONS, REGIONS, AGES, HEAT, COMMISSION_TIERS, RATES, totals, rnd
+    SEASONS, REGIONS, AGES, HEAT, COMMISSION_TIERS, RATES, totals, MATCH, rnd
   };
 })();

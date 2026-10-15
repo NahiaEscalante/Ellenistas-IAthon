@@ -429,6 +429,7 @@ El modelo de datos completo (tipos, validaciones y mapeo a SUNAT) está en [CAMP
 - [ ] ¿**Brasper 21 Corretor(a)…** es quien emite en Omie para BxP? ¿Cuál es su razón social completa y su CNPJ?
 - [ ] ¿El comprobante BxP es una NFS-e brasileña? ¿El cliente peruano recibe algo emitido en Perú?
 - [ ] **Correo del cliente**: en el módulo nuevo es *opcional*. ¿La plataforma nueva lo trae siempre? Si falta, ¿se envía el PDF por WhatsApp?
+- [ ] ¿El dashboard (o `user.user`) guarda el **teléfono y el correo** de cada cliente? Son las llaves que usa Rastro para unir los chats de WhatsApp y los formularios de Meta con cada cliente.
 - [x] ~~¿El dashboard marca qué operaciones ya fueron facturadas?~~ → Sí, con la columna "Comprobante SUNAT" (serie, número y estado).
 - [ ] ¿Cuánto pagan al mes por cada plataforma? (Precio público de KeyFácil Corporativo: S/ 99.90 + IGV.) ¿Tienen una cuenta por cada empresa emisora?
 - [x] ~~¿WhatsApp Business app o API?~~ → **App WhatsApp Business.**

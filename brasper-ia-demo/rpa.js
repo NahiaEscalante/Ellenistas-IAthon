@@ -9,7 +9,10 @@
     learned: { kf: 'A', om: 'A' }, platform: 'kf', rendered: null,
     done: {}, results: {}, times: [], boleta: 4872, nfse: 1285, page: 'contab'
   };
-  const wait = ms => new Promise(async res => { let t = 0; while (t < ms) { await sleep(40); if (!S.paused) t += 40 * S.speed; } res(); });
+  const wait = UI.waiter(S);
+  const fly = (fromEl, toEl, text, dur) => UI.fly(fromEl, toEl, text, dur, S.speed);
+  const reveal = UI.reveal;
+  const revealX = el => UI.revealX(el, $('#rpa-bp .tbl-wrap'));
 
   /* ---------- Esquemas de formularios ---------- */
   const docName = t => ({ DNI: 'DNI', CE: 'Carnet de extranjería', CPF: 'CPF', RUC: 'RUC' }[t] || t);
@@ -188,31 +191,6 @@
   function setRpaCell(code, html) { const c = cell(code, 'rpa'); if (c) c.innerHTML = html; }
   function restoreRowStates() { Object.entries(S.results).forEach(([code, html]) => setRpaCell(code, html)); }
 
-  // Desplaza solo el contenedor indicado (nunca la ventana) para que el elemento quede visible
-  function reveal(el, box) {
-    if (!el || !box) return;
-    const c = box.getBoundingClientRect(), r = el.getBoundingClientRect();
-    if (r.top < c.top + 50) box.scrollTop -= (c.top + 50 - r.top);
-    else if (r.bottom > c.bottom - 24) box.scrollTop += (r.bottom - c.bottom + 24);
-  }
-  function revealX(el) {
-    const w = $('#rpa-bp .tbl-wrap'); if (!el || !w) return;
-    const c = w.getBoundingClientRect(), r = el.getBoundingClientRect();
-    if (r.left < c.left + 10 || r.right > c.right - 10) w.scrollLeft += (r.left - c.left) - c.width * 0.35;
-  }
-  async function fly(fromEl, toEl, text, dur) {
-    if (!fromEl || !toEl) return;
-    const a = fromEl.getBoundingClientRect(), b = toEl.getBoundingClientRect();
-    const p = document.createElement('div'); p.className = 'packet'; p.textContent = text; document.body.appendChild(p);
-    const x0 = a.left + a.width / 2, y0 = a.top + a.height / 2, x1 = b.left + Math.min(b.width / 2, 90), y1 = b.top + b.height / 2;
-    const mx = (x0 + x1) / 2, my = Math.min(y0, y1) - 46;
-    const k = (x, y, o, s) => ({ left: x + 'px', top: y + 'px', opacity: o, transform: `translate(-50%,-50%) scale(${s})` });
-    try {
-      const an = p.animate([k(x0, y0, 0, .7), k(x0 + (mx - x0) * .3, y0 + (my - y0) * .3, 1, .95), k(mx, my, 1, 1.05), k(x1, y1, 1, .95)], { duration: dur / S.speed, easing: 'cubic-bezier(.45,.05,.3,1)', fill: 'forwards' });
-      await Promise.race([an.finished, sleep(dur / S.speed + 400)]);
-    } catch (e) { /* animación cancelada */ }
-    p.remove();
-  }
   function moveCursor(target) {
     const cur = $('#vcursor'), bv = $('#bview'); if (!cur || !target) return;
     const r = target.getBoundingClientRect(), br = bv.getBoundingClientRect();

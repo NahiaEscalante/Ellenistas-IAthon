@@ -30,7 +30,7 @@
       pipe: ['Captura el clic', 'Une el registro', 'Cruza operaciones', 'Atribuye ingreso'],
       chips: ['Meta Ads', 'WhatsApp', 'Web · UTM', 'user.user', 'transactions'],
       hello: `Soy <b>Rastro</b>. Ya identifico el origen del <span class="hl">${matchedPct} %</span> de los clientes de campaña, sin etiquetas a mano.`,
-      qs: [{ q: '¿De dónde vienen los clientes?', k: ['donde', 'vienen', 'origen', 'canal'] }, { q: 'Recorrido de un cliente', k: ['recorrido', 'journey', 'viaje'] }, { q: 'Campañas con operaciones reales', k: ['campañas', 'operaciones', 'reales'] }, { q: 'Simular una visita desde un anuncio', k: ['captur', 'web', 'utm', 'fbclid', 'simular', 'calculadora'] }] },
+      qs: [{ q: '¿De dónde vienen los clientes?', k: ['donde', 'vienen', 'origen', 'canal'] }, { q: 'Recorrido de un cliente', k: ['recorrido', 'journey', 'viaje'] }, { q: 'Campañas con operaciones reales', k: ['campañas', 'operaciones', 'reales'] }, { q: 'Ver el match en vivo', k: ['match', 'en vivo', 'cómo unes', 'como unes', 'cruce', 'cruzas', 'fbclid', 'utm', 'simular'], view: 'match' }] },
     { id: 'capital', name: 'Capital', role: 'Finanzas', color: '#F59E0B', lt: '#FCD34D', dk: '#B45309', icon: 'coins',
       tag: 'Cada sol invertido convertido en ROI, ROAS y CAC.',
       live: ['Recalculando ROAS de hoy', 'Convirtiendo BRL a PEN', 'Actualizando CAC por canal'],
@@ -152,11 +152,7 @@
       () => ({ think: ['Sumando operaciones por campaña'],
         text: `Las 13 campañas ordenadas por la comisión que dejaron sus clientes.`,
         title: 'Campañas con operaciones reales', tag: 'por cliente',
-        viz: `<div class="dt-wrap"><table class="dtable"><thead><tr><th>Campaña</th><th>Canal</th><th class="r">Clientes</th><th class="r">Operaciones</th><th class="r">Comisión</th><th class="r">Identificados</th></tr></thead><tbody>${C.slice().sort((a, b) => b.revenue - a.revenue).map(c => `<tr><td><b>${c.name}</b></td><td>${chName(c.ch)}</td><td class="r">${c.newClients}</td><td class="r">${c.ops}</td><td class="r"><b>${money(c.revenue)}</b></td><td class="r">${c.matched} %</td></tr>`).join('')}</tbody></table></div>` }),
-      () => ({ think: ['Abriendo la web nueva'],
-        text: 'Elige de dónde llega el visitante y cotiza. A la derecha ves lo que capturo.',
-        title: 'Simulador de visita', tag: 'web Brasper',
-        viz: calcSim(), note: 'Solo con consentimiento de cookies (Ley 29733 y LGPD).', after: bindCalcSim })
+        viz: `<div class="dt-wrap"><table class="dtable"><thead><tr><th>Campaña</th><th>Canal</th><th class="r">Clientes</th><th class="r">Operaciones</th><th class="r">Comisión</th><th class="r">Identificados</th></tr></thead><tbody>${C.slice().sort((a, b) => b.revenue - a.revenue).map(c => `<tr><td><b>${c.name}</b></td><td>${chName(c.ch)}</td><td class="r">${c.newClients}</td><td class="r">${c.ops}</td><td class="r"><b>${money(c.revenue)}</b></td><td class="r">${c.matched} %</td></tr>`).join('')}</tbody></table></div>` })
     ],
     capital: [
       () => ({ think: ['Leyendo gasto por campaña', 'Sumando comisiones atribuidas'],
@@ -253,56 +249,6 @@
     ]
   };
 
-  /* ---------- Simulador de visita (Rastro) ---------- */
-  const VISITS = {
-    ig: { label: 'Instagram', params: [['utm_source', 'meta'], ['utm_campaign', 'navidad_pxb_2026'], ['fbclid', 'IwAR2xQ9kLm…7Tz']], camp: 'Navidad PxB · Meta', key: 'fbclid' },
-    wa: { label: 'WhatsApp', params: [['utm_source', 'whatsapp'], ['utm_campaign', 'siempre_activa_sp'], ['ctwa_clid', 'ARAkLx7Qp…91c']], camp: 'Siempre activa · SP', key: 'ctwa_clid + teléfono' },
-    tt: { label: 'TikTok', params: [['utm_source', 'tiktok'], ['utm_campaign', 'envia_en_minutos'], ['ttclid', 'E.C.P.v3Hk…Qa']], camp: 'TikTok · Envía en minutos', key: 'ttclid' },
-    ev: { label: 'QR de evento', params: [['utm_source', 'evento'], ['utm_campaign', 'embajada_oct'], ['cupon', 'EMBAJADA10']], camp: 'Evento Embajada', key: 'cupón' }
-  };
-  function calcSim() {
-    return `<div style="display:grid;gap:12px">
-      <div class="visit-src" id="vsrc">${Object.entries(VISITS).map(([k, v], i) => `<button data-v="${k}" class="${i === 0 ? 'on' : ''}">${v.label}</button>`).join('')}</div>
-      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px" class="simgrid">
-        <div class="calc" style="color:#141B3D">
-          <div style="display:flex;align-items:center;gap:8px"><img src="logo-160.png" alt="" style="width:22px;height:22px"><b style="font-family:var(--f-display);font-size:14px">Cotiza tu envío</b></div>
-          <div class="dir"><button data-d="PxB" class="on">Perú → Brasil</button><button data-d="BxP">Brasil → Perú</button></div>
-          <div class="amt"><label for="sim-amt">Tú envías</label><input id="sim-amt" inputmode="decimal" value="500"><span class="cur" id="sim-cur">PEN</span></div>
-          <div class="calc-lines"><div><span>Comisión</span><b id="sim-com">—</b></div><div><span>Tipo de cambio</span><b id="sim-rate">—</b></div><div><span>Recibe</span><b id="sim-rec" style="font-size:15px">—</b></div></div>
-          <button class="cta" id="sim-go">Iniciar envío</button>
-        </div>
-        <div class="track" id="sim-track"></div>
-      </div></div>`;
-  }
-  function bindCalcSim(root) {
-    let src = 'ig', dir = 'PxB', events = [];
-    function calc() {
-      const amt = Math.max(0, parseFloat(String($('#sim-amt', root).value).replace(',', '.')) || 0);
-      const pct = B.COMMISSION_TIERS[dir].find(t => amt <= t.max).pct, com = amt * pct / 100, rate = B.RATES[dir], rec = (amt - com) * rate;
-      $('#sim-cur', root).textContent = dir === 'PxB' ? 'PEN' : 'BRL';
-      $('#sim-com', root).textContent = `${dir === 'PxB' ? 'S/' : 'R$'} ${nf(com, 2)} (${nf(pct, 1)} %)`;
-      $('#sim-rate', root).textContent = String(rate);
-      $('#sim-rec', root).textContent = `${dir === 'PxB' ? 'R$' : 'S/'} ${nf(rec, 2)}`;
-      return { amt, rec };
-    }
-    function track() {
-      const v = VISITS[src];
-      $('#sim-track', root).innerHTML = `<h4>${ic('eye').replace('<svg', '<svg style="width:15px;height:15px;color:#06B6D4"')} Lo que captura Rastro</h4>
-        ${v.params.map(([k, val]) => `<div><span class="k">${k}</span> = <span class="v">${val}</span></div>`).join('')}
-        <div class="ev">${events.length ? events.map(e => `<p>${e}</p>`).join('') : '<p class="k">Pulsa "Iniciar envío".</p>'}</div>`;
-    }
-    $$('#vsrc button', root).forEach(b => b.onclick = () => { src = b.dataset.v; events = []; $$('#vsrc button', root).forEach(x => x.classList.toggle('on', x === b)); track(); });
-    $$('.calc .dir button', root).forEach(b => b.onclick = () => { dir = b.dataset.d; $$('.calc .dir button', root).forEach(x => x.classList.toggle('on', x === b)); calc(); });
-    $('#sim-amt', root).oninput = calc;
-    $('#sim-go', root).onclick = async () => {
-      const r = calc(), v = VISITS[src];
-      events = [`<span class="ok">✓</span> Cotización guardada · ${dir === 'PxB' ? 'S/' : 'R$'} ${nf(r.amt, 2)}`]; track(); await sleep(550);
-      events.push(`<span class="ok">✓</span> Registro vinculado por <span class="v">${v.key}</span>`); track(); await sleep(550);
-      events.push(`<span class="ok">✓</span> Atribuido a <span class="v">${v.camp}</span>`); track();
-    };
-    calc(); track();
-  }
-
   /* ---------- Copiloto ---------- */
   const COPILOT = [
     { q: 'Resumen de la semana', who: ['capital', 'rastro', 'caudal', 'lupa'], k: ['resumen', 'semana', 'gerencia'],
@@ -366,8 +312,8 @@
         ['capital', 'good', 'Bien', `${best.name}: ROAS ${nf(best.roas, 2)}x.`],
         ['horizonte', 'info', 'Plan', 'Diciembre: S/ 1,850 – 2,450.'],
         ['bitacora', 'info', 'Registro', `${quotesQ - quotesC} cotizaciones sin cierre guardadas.`],
-        ['rastro', 'good', 'Origen', `${matchedPct} % de clientes de campaña identificados.`]
-      ].map(([id, sev, sl, txt]) => { const a = byId[id]; return `<button class="find" data-view="${id}" style="--ac:${a.color}">${mascot(id, 50)}<div class="who"><b>${a.name}</b><span class="sev ${sev}">${sl}</span></div><p>${txt}</p></button>`; }).join('')}</div>`;
+        ['rastro', 'good', 'Origen', `${matchedPct} % de clientes de campaña identificados. Mira el match en vivo.`, 'match']
+      ].map(([id, sev, sl, txt, view]) => { const a = byId[id]; return `<button class="find" data-view="${view || id}" style="--ac:${a.color}">${mascot(id, 50)}<div class="who"><b>${a.name}</b><span class="sev ${sev}">${sl}</span></div><p>${txt}</p></button>`; }).join('')}</div>`;
   }
 
   function agentView(a) {
@@ -383,7 +329,7 @@
         <div class="chat">
           <div class="chat-h">${mascot(a.id, 26)}Habla con ${a.name}</div>
           <div class="msgs" id="msgs"></div>
-          <div class="chat-sugs" id="chat-sugs">${a.qs.map((q, i) => `<button class="sug" data-q="${i}"><span class="ad" style="background:${a.color}"></span>${q.q}</button>`).join('')}</div>
+          <div class="chat-sugs" id="chat-sugs">${a.qs.map((q, i) => `<button class="sug${q.view ? ' sug-go' : ''}" data-q="${i}"><span class="ad" style="background:${a.color}"></span>${q.q}${q.view ? ' →' : ''}</button>`).join('')}</div>
           <form class="chat-in" id="chat-form"><input id="chat-in" placeholder="Pregúntale a ${a.name}…" aria-label="Pregunta a ${a.name}"><button type="submit" aria-label="Enviar">${ic('send').replace('<svg', '<svg style="width:15px;height:15px"')}</button></form>
         </div>
         <div class="evid" id="evid"></div>
@@ -400,6 +346,12 @@
     const msgs = $('#msgs'); if (!msgs) return;
     msgs.insertAdjacentHTML('beforeend', `<div class="msg me fade-in">${esc(typed || a.qs[idx].q)}</div>`);
     if (idx == null) { msgs.insertAdjacentHTML('beforeend', botMsg(a, 'En la demo respondo las preguntas sugeridas.')); msgs.scrollTop = msgs.scrollHeight; return; }
+    // Algunas preguntas abren una escena en pantalla completa en vez de responder en el chat
+    if (a.qs[idx].view) {
+      msgs.insertAdjacentHTML('beforeend', botMsg(a, 'Te muestro cómo uno cada señal con un cliente, paso a paso.'));
+      msgs.scrollTop = msgs.scrollHeight;
+      await sleep(700); go(a.qs[idx].view); return;
+    }
     const r = A[a.id][idx](); const id = 'th' + Date.now();
     msgs.insertAdjacentHTML('beforeend', botMsg(a, `<div class="thinking" id="${id}">${r.think.map(t => `<p>${t}…</p>`).join('')}</div>`));
     msgs.scrollTop = msgs.scrollHeight;
@@ -412,9 +364,28 @@
   }
   function route(a, text) { const t = text.toLowerCase(); let bi = null, sc = 0; a.qs.forEach((q, i) => { const s = q.k.filter(k => t.includes(k)).length; if (s > sc) { sc = s; bi = i; } }); return bi; }
 
+  // Match en vivo de Rastro: pantalla completa, sin la barra de agentes, para que entren las tres columnas
+  function matchShell() {
+    return `<div class="arm arm-full">${aurora}
+      <div class="arm-top">
+        <div class="arm-logo"><img src="logo-160.png" alt=""><b>Brasper <em>ARM</em></b></div>
+        <span class="crumb2">${mascot('rastro', 26)}Rastro · Match en vivo</span>
+        <span class="sp"></span>
+        <span class="agents-on"><i></i>6 agentes activos</span>
+        <button class="back-btn" id="mx-back">${ic('back').replace('<svg', '<svg style="width:14px;height:14px"')}Volver a Rastro</button>
+      </div>
+      <div class="mx" id="mx"></div></div>`;
+  }
+
   function go(view) { S.view = view; render(); window.scrollTo(0, 0); }
   function render() {
     const el = $('#stage-arm'); const a = byId[S.view];
+    if (S.view === 'match') {
+      el.innerHTML = matchShell();
+      $('#mx-back').onclick = () => go('rastro');
+      MATCH.mount($('#mx'), { capital: () => go('capital') });
+      return;
+    }
     el.innerHTML = shell(S.view === 'home' ? homeView() : S.view === 'arch' ? archView() : agentView(a));
     $$('#stage-arm [data-view]').forEach(b => b.onclick = () => go(b.dataset.view));
     $('#arm-back').onclick = () => APP.go('web');

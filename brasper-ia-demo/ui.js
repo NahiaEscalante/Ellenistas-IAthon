@@ -57,7 +57,8 @@
     pdf: 'M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7zM14 3v4h4M9 15h1.5a1.5 1.5 0 0 0 0-3H9v5M14 12v5',
     eye: 'M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
     phone: 'M7 2h10a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zM11 18h2',
-    wallet: 'M20 7H5a2 2 0 0 1 0-4h13v4M3 5v14a2 2 0 0 0 2 2h15V7M16 14h.01'
+    wallet: 'M20 7H5a2 2 0 0 1 0-4h13v4M3 5v14a2 2 0 0 0 2 2h15V7M16 14h.01',
+    lock: 'M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4'
   };
   const ic = (name, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${P[name] || P.file}"/></svg>`;
 
@@ -70,22 +71,26 @@
     return `<span class="wordmark"><img src="logo-160.png" alt="Brasper"><span class="wm"><b>BrasPer</b><i>Transferencias</i></span></span>`;
   }
   function rail(active, extra = '') {
-    const items = [['line', 'Inicio'], ['bars', 'Métricas'], ['users', 'Clientes'], ['clip', 'Transacciones', 'trans'], ['file', 'Contabilidad', 'contab'], ['receipt', 'Facturación'], ['file', 'Reportes'], ['split', 'Comisiones'], ['folder', 'Documentos'], ['swap', 'Tasas'], ['card', 'Cuentas']];
+    const items = [['line', 'Inicio'], ['bars', 'Métricas'], ['users', 'Clientes', 'clientes'], ['clip', 'Transacciones', 'trans'], ['file', 'Contabilidad', 'contab'], ['receipt', 'Facturación'], ['file', 'Reportes'], ['split', 'Comisiones'], ['folder', 'Documentos'], ['swap', 'Tasas'], ['card', 'Cuentas']];
     return `<nav class="bp-rail" aria-label="Menú Brasper">${extra}${items.map(([i, t, k]) => `<button data-tip="${t}" ${k ? `data-page="${k}"` : ''} class="${k === active ? 'on' : ''}" aria-label="${t}">${ic(i)}</button>`).join('')}<hr>${ic('gear').replace('<svg', '<svg style="width:18px;height:18px;color:#C9D2FF;margin:8px 0"')}${ic('logout').replace('<svg', '<svg style="width:18px;height:18px;color:#C9D2FF;margin:8px 0"')}</nav>`;
   }
   function topbar(crumb) {
     return `<div class="bp-top">${wordmark()}<span class="crumb">${crumb}</span><span class="sp"></span>${ic('bell', 'bell')}<span class="avatar">B</span></div>`;
   }
-  function filters() {
+  function filters(page) {
+    const when = page === 'clientes'
+      ? `<span class="seg"><span class="on">Esta semana</span><span>Todos</span></span>
+      <span class="date-strong">Del 8 al 14 de octubre de 2026 <span class="today">hoy</span><small>Clientes nuevos · ${BD.MATCH.total} registros</small></span>`
+      : `<span class="seg"><span class="on">Por día</span><span>Todas</span></span>
+      <span class="date-strong">Miércoles, 14 de octubre de 2026 <span class="today">hoy</span><small>De 00:00 a 23:59 · 53 envíos</small></span>`;
     return `<div class="bp-filters">
-      <span class="seg"><span class="on">Por día</span><span>Todas</span></span>
-      <span class="date-strong">Miércoles, 14 de octubre de 2026 <span class="today">hoy</span><small>De 00:00 a 23:59 · 53 envíos</small></span>
+      ${when}
       <span class="datein">${ic('cal').replace('<svg', '<svg style="width:13px;height:13px"')} 14/10/2026</span>
       <span style="flex:1"></span>
-      <button class="btn" tabindex="-1">${ic('down')}Exportar el día</button>
+      <button class="btn" tabindex="-1">${ic('down')}${page === 'clientes' ? 'Exportar' : 'Exportar el día'}</button>
     </div>
     <div class="tags">${BD.TAGS.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-    <div class="search">${ic('search')}Buscar por código</div>`;
+    <div class="search">${ic('search')}${page === 'clientes' ? 'Buscar por nombre o documento' : 'Buscar por código'}</div>`;
   }
   const fmt2 = n => nf(n, 2);
   function transTable(rows) {
@@ -118,24 +123,73 @@
     </tr>`).join('')}
     </tbody></table>`;
   }
-  /* Pantalla completa de la plataforma actual. opts.page: 'contab' | 'trans'; opts.railExtra: HTML extra en el menú */
+  // Clientes nuevos de la semana. withRastro agrega la columna que llena el agente Rastro al unir cada cliente con su campaña.
+  function clientesTable(rows, withRastro) {
+    return `<table class="bt" id="clientes"><thead><tr><th>Cliente</th><th>Contacto</th><th>Etiqueta del vendedor</th>${withRastro ? '<th class="rcol">Origen · Rastro</th>' : ''}</tr></thead><tbody>
+    ${rows.map(r => `<tr data-id="${r.id}">
+      <td data-k="name"><b class="cn">${r.name}</b><small>${r.docType} · ${r.city} · ${r.reg}</small></td>
+      <td data-k="contact"><span data-f="tel">${r.phone}</span><small data-f="email">${r.email}</small></td>
+      <td data-k="tag">${r.tag ? `<span class="ctag">${r.tag}</span>` : '<span class="ctag none">Sin etiqueta</span>'}</td>
+      ${withRastro ? '<td data-k="origin"><span class="og wait">Pendiente</span></td>' : ''}
+    </tr>`).join('')}
+    </tbody></table>`;
+  }
+  /* Pantalla completa de la plataforma actual. opts.page: 'contab' | 'trans' | 'clientes'; opts.railExtra: HTML extra en el menú */
   function brasperScreen(opts) {
     const page = opts.page || 'contab';
     const rows = BD.ACCOUNTING_TODAY;
-    const title = page === 'contab' ? 'Contabilidad' : 'Transacciones';
+    const title = { contab: 'Contabilidad', trans: 'Transacciones', clientes: 'Clientes' }[page];
+    const group = page === 'clientes' ? 'CRM' : 'Operaciones';
+    const table = page === 'contab' ? contabTable(rows, opts.withRpa) : page === 'clientes' ? clientesTable(BD.MATCH.clients, opts.withRastro) : transTable(rows);
+    const pager = page === 'clientes' ? ['Página 1 de 2', `${BD.MATCH.total} resultados`] : ['Página 1 de 5', '53 resultados'];
     return `<div class="bp">
-      ${topbar(`Operaciones &nbsp;›&nbsp; ${title}`)}
+      ${topbar(`${group} &nbsp;›&nbsp; ${title}`)}
       <div class="bp-body">
         <aside class="bp-side">${rail(page, opts.railExtra || '')}</aside>
         <div class="bp-main">
-          <div class="bp-head"><div><div class="eyebrow">Operaciones</div><h1>${title} <span class="live">En vivo</span></h1></div><span class="sp"></span>
+          <div class="bp-head"><div><div class="eyebrow">${group}</div><h1>${title} <span class="live">En vivo</span></h1></div><span class="sp"></span>
             <button class="btn" tabindex="-1">${ic('upload')}Importar</button><button class="btn" tabindex="-1">${ic('cloud')}Importar simple</button><button class="btn primary" tabindex="-1">${ic('plus')}Crear</button></div>
-          ${filters()}
-          <div class="tbl-wrap">${page === 'contab' ? contabTable(rows, opts.withRpa) : transTable(rows)}</div>
-          <div class="pager"><span>Página 1 de 5</span><span>53 resultados</span></div>
+          ${filters(page)}
+          <div class="tbl-wrap">${table}</div>
+          <div class="pager"><span>${pager[0]}</span><span>${pager[1]}</span></div>
         </div>
       </div>
     </div>`;
+  }
+
+  /* ---------- Animación compartida (RPA y Rastro) ---------- */
+  // Espera que respeta la pausa y la velocidad de la demo (st = { speed, paused, gen }).
+  // Si st.gen cambia (la escena se cerró o se reinició), la promesa nunca se resuelve y la animación en curso se detiene sola.
+  const waiter = st => ms => new Promise(async res => {
+    const g = st.gen; let t = 0;
+    while (t < ms) { await sleep(40); if (st.gen !== g) return; if (!st.paused) t += 40 * st.speed; }
+    res();
+  });
+  // Desplaza solo el contenedor indicado (nunca la ventana) para que el elemento quede visible
+  function reveal(el, box) {
+    if (!el || !box) return;
+    const c = box.getBoundingClientRect(), r = el.getBoundingClientRect();
+    if (r.top < c.top + 50) box.scrollTop -= (c.top + 50 - r.top);
+    else if (r.bottom > c.bottom - 24) box.scrollTop += (r.bottom - c.bottom + 24);
+  }
+  function revealX(el, box) {
+    if (!el || !box) return;
+    const c = box.getBoundingClientRect(), r = el.getBoundingClientRect();
+    if (r.left < c.left + 10 || r.right > c.right - 10) box.scrollLeft += (r.left - c.left) - c.width * 0.35;
+  }
+  // Un dato "vuela" de un elemento a otro. No anima si alguno de los dos está oculto (otra pestaña o escena cerrada).
+  async function fly(fromEl, toEl, text, dur, speed = 1) {
+    if (!fromEl || !toEl || !fromEl.getClientRects().length || !toEl.getClientRects().length) return;
+    const a = fromEl.getBoundingClientRect(), b = toEl.getBoundingClientRect();
+    const p = document.createElement('div'); p.className = 'packet'; p.textContent = text; document.body.appendChild(p);
+    const x0 = a.left + a.width / 2, y0 = a.top + a.height / 2, x1 = b.left + Math.min(b.width / 2, 90), y1 = b.top + b.height / 2;
+    const mx = (x0 + x1) / 2, my = Math.min(y0, y1) - 46;
+    const k = (x, y, o, s) => ({ left: x + 'px', top: y + 'px', opacity: o, transform: `translate(-50%,-50%) scale(${s})` });
+    try {
+      const an = p.animate([k(x0, y0, 0, .7), k(x0 + (mx - x0) * .3, y0 + (my - y0) * .3, 1, .95), k(mx, my, 1, 1.05), k(x1, y1, 1, .95)], { duration: dur / speed, easing: 'cubic-bezier(.45,.05,.3,1)', fill: 'forwards' });
+      await Promise.race([an.finished, sleep(dur / speed + 400)]);
+    } catch (e) { /* animación cancelada */ }
+    p.remove();
   }
 
   /* ---------- Tooltips ---------- */
@@ -261,5 +315,5 @@
 
   const legend = items => `<div class="legend">${items.map(i => `<span><i class="${i.type || ''}" style="background:${i.color};border-color:${i.color}"></i>${esc(i.label)}</span>`).join('')}</div>`;
 
-  window.UI = { $, $$, esc, sleep, nf, money, ptbr, ic, flag, brasperScreen, contabTable, initTips, barsH, colsStacked, lines, colsPair, legend, niceMax };
+  window.UI = { $, $$, esc, sleep, nf, money, ptbr, ic, flag, brasperScreen, contabTable, initTips, barsH, colsStacked, lines, colsPair, legend, niceMax, waiter, reveal, revealX, fly };
 })();
