@@ -45,12 +45,6 @@ const esperar = (page, fn, arg, timeout = 120000) => page.waitForFunction(fn, ar
   await esperar(page, () => document.querySelector('#bview .kf') && document.querySelectorAll('#bview input.filled').length >= 9 && document.querySelector('.packet'));
   await foto(page, 'rpa-trabajando');
 
-  // La plataforma cambia de diseño: el robot la reconoce con visión
-  await page.click('#lay-seg button[data-l="B"]');
-  await esperar(page, () => document.querySelectorAll('#bview .vbox').length >= 12);
-  await page.waitForTimeout(300);
-  await foto(page, 'rpa-vision');
-
   // PxB-001529 no cuadra y se aparta para revisión humana
   await esperar(page, () => document.querySelector('#rules .rule.bad') && document.querySelector('#toast.show.bad'));
   await page.waitForTimeout(500);

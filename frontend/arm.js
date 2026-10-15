@@ -449,9 +449,9 @@
         <h3>Solución 1 · RPA de facturación</h3>
         <div class="flow">
           ${col('Origen', [['Dashboard Brasper', 'vista Contabilidad'], ['Sin acceso a la base', 'trabaja sobre la interfaz']])}
-          ${col('Agente RPA', [['Lee la fila', 'como el contador'], ['Valida reglas', 'boleta/factura, IGV'], ['Visión IA', 'si cambia la pantalla', '#06B6D4']])}
+          ${col('Agente RPA', [['Lee la fila', 'como el contador'], ['Valida reglas', 'boleta/factura, IGV'], ['Llena y emite', 'campo por campo']])}
           ${col('Emisión', [['KeyFácil', 'Perú → Brasil'], ['Omie', 'Brasil → Perú']])}
-          ${col('Control', [['IA valida el PDF', 'contra el dashboard', '#06B6D4'], ['Excepciones', 'a revisión humana']])}
+          ${col('Control', [['Registra', 'número del comprobante en el dashboard'], ['Excepciones', 'a revisión humana']])}
         </div>
         <h3>Solución 2 · ARM con agentes</h3>
         <div class="flow">

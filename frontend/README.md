@@ -10,9 +10,9 @@ Link publicado: https://claude.ai/artifact/Wf9AC2YLhUBTwrXTeZM6po
    - lee cada fila;
    - valida las reglas antes de emitir;
    - llena **KeyFácil** si la ruta es Perú → Brasil o **Omie** si es Brasil → Perú;
-   - emite el comprobante y valida el PDF.
+   - emite el comprobante y anota su número en el dashboard.
 
-   El switch **Rediseñada** cambia la pantalla de destino: el robot la reconoce con visión y sigue trabajando. La operación PxB-001529 se aparta a propósito, porque sus montos no cuadran.
+   La operación PxB-001529 se aparta a propósito, porque sus montos no cuadran.
 2. **ARM con agentes IA.** Arranca en el dashboard actual. El botón con los muñecos, o el orbe de la barra lateral, abre un portal hacia el ARM, donde trabajan seis agentes con su propia mascota y un Copiloto que los coordina:
    - **Rastro** (trazabilidad): une campaña, cliente y operaciones.
    - **Capital** (finanzas): ROI, ROAS y CAC.
@@ -49,7 +49,7 @@ Luego abre `http://localhost:8765`. Si prefieres no usar Node, desde esta carpet
 | `_preview.html` | Copia de `index.html` con `<!doctype>` para correr en local |
 | `data.js` | Data simulada: operaciones de hoy, 13 campañas 2026, clientes atribuidos, liquidez, cotizaciones, motivos de no cierre, calendario y el escenario del match en vivo (`BD.MATCH`) |
 | `ui.js` | Íconos, réplica del dashboard de Brasper (Contabilidad, Transacciones y Clientes), gráficos SVG, tooltips y la animación que comparten el RPA y Rastro |
-| `rpa.js` | Solución 1: robot, formularios de KeyFácil y Omie, reglas, visión IA y validación del PDF |
+| `rpa.js` | Solución 1: robot, formularios de KeyFácil y Omie, reglas, emisión y registro del número en el dashboard |
 | `web.js` | Entrada a la Solución 2 desde el dashboard y el portal hacia el ARM |
 | `arm.js` | ARM: mascotas, agentes, chat guionado, Copiloto, constelación y "Cómo funciona" |
 | `match.js` | Match en vivo de Rastro: campañas → Rastro → dashboard, con la cascada de match |

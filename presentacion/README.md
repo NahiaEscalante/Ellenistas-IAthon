@@ -26,7 +26,7 @@ npm start
 Luego abre `http://localhost:8765`.
 
 1. **RPA de facturación.** Pulsa *Activar RPA* y luego *Iniciar facturación automática*.
-2. **La pantalla cambia.** A mitad del lote, cambia *Diseño de la plataforma destino* a *Rediseñada*: la visión IA reconoce los campos. Señala que PxB-001529 queda en *Revisión humana*. Pasa a *Turbo* para terminar (10 emitidos, 1 en revisión).
+2. **El lote completo.** Señala que PxB-001529 queda en *Revisión humana* porque sus montos no cuadran. Pasa a *Turbo* para terminar (10 emitidos, 1 en revisión).
 3. **ARM.** En la pestaña *ARM con agentes IA*, pulsa *Brasper ARM · Entrar*. En el Copiloto usa la sugerencia *¿Qué campaña apago y cuál escalo?*. Después abre a Lupa y pulsa *¿Cómo cambio el mensaje?*.
 
 > Usa las preguntas sugeridas: el chat está guionado y una pregunta escrita a mano puede llegar al agente equivocado. Si la demo en vivo falla, sigue con las láminas 14 a 17, que muestran los mismos momentos.
