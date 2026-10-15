@@ -1,0 +1,14 @@
+{
+  "name": "brasper-ia-presentacion",
+  "private": true,
+  "description": "Genera el pitch de Brasper IA (IAthon 2026 · Ellenistas) en PowerPoint",
+  "scripts": {
+    "capturas": "node capturas.js",
+    "generar": "node generar.js"
+  },
+  "devDependencies": {
+    "playwright": "1.55.0",
+    "pptxgenjs": "^3.12.0",
+    "sharp": "^0.34.0"
+  }
+}
