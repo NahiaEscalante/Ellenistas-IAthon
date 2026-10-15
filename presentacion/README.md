@@ -17,11 +17,13 @@
 
 Antes de presentar, levanta la demo y déjala abierta en otra pestaña:
 
+Desde la raíz del repositorio:
+
 ```bash
-cd brasper-ia-demo
-python3 -m http.server 8765
-# abrir http://localhost:8765/_preview.html
+npm start
 ```
+
+Luego abre `http://localhost:8765`.
 
 1. **RPA de facturación.** Pulsa *Activar RPA* y luego *Iniciar facturación automática*.
 2. **La pantalla cambia.** A mitad del lote, cambia *Diseño de la plataforma destino* a *Rediseñada*: la visión IA reconoce los campos. Señala que PxB-001529 queda en *Revisión humana*. Pasa a *Turbo* para terminar (10 emitidos, 1 en revisión).
@@ -46,4 +48,4 @@ npm run generar    # escribe Brasper-IA-Pitch.pptx
 | `capturas.js` | Levanta la demo con un servidor propio, la recorre con Playwright y guarda las capturas y las mascotas en `assets/` |
 | `assets/` | Capturas de la demo (`.jpg`) y mascotas de los seis agentes (`.png`) |
 
-Las cifras del ARM que aparecen en las capturas son simuladas, como en la demo. Las del problema (60 y 1000 operaciones al día, de 2 a 3 días por comprobante, etc.) salen del [README del proyecto](../README.md).
+Las cifras del ARM que aparecen en las capturas son simuladas, como en la demo. Las del problema (60 y 1000 operaciones al día, de 2 a 3 días por comprobante, etc.) salen del [diagnóstico](../docs/diagnostico.md).

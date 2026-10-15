@@ -8,7 +8,7 @@ const pptxgen = require('pptxgenjs');
 const JSZip = require(require.resolve('jszip', { paths: [require.resolve('pptxgenjs')] }));
 
 const ASSETS = path.join(__dirname, 'assets');
-const DEMO = path.join(__dirname, '..', 'brasper-ia-demo');
+const DEMO = path.join(__dirname, '..', 'frontend');
 const SALIDA = path.join(__dirname, 'Brasper-IA-Pitch.pptx');
 
 /* ---------- Tema: colores de la marca Brasper ---------- */
@@ -492,7 +492,7 @@ Todo pasa solo después de que la persona acepta las cookies, como piden la Ley 
     texto(s, d, { x: x + 1.15, y: y + 0.62, w: w - 1.4, h: 0.5, fontSize: 14, color: C.background2 });
   });
   s.addNotes(`(Demo en vivo, ≈3 min)
-Antes de presentar: en la carpeta brasper-ia-demo, ejecutar «python3 -m http.server 8765» y abrir http://localhost:8765/_preview.html. Dejarlo abierto en otra pestaña.
+Antes de presentar: en la raíz del repositorio, ejecutar «npm start» y abrir http://localhost:8765. Dejarlo abierto en otra pestaña.
 
 1. Pestaña «RPA de facturación»: clic en «Activar RPA» y luego en «Iniciar facturación automática». Narrar cómo lee la fila, valida las reglas y llena KeyFácil (Perú → Brasil) u Omie (Brasil → Perú).
 2. A mitad del lote, cambiar «Diseño de la plataforma destino» a «Rediseñada». Mostrar la visión IA reconociendo los campos. Señalar que PxB-001529 queda en «Revisión humana». Pasar a «Turbo» para terminar: 10 emitidos, 1 en revisión.

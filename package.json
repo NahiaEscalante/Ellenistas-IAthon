@@ -1,0 +1,15 @@
+{
+  "name": "brasper-ia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Brasper IA (IAthon 2026 · Ellenistas): RPA de facturación y ARM con agentes IA para Brasper",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node scripts/servir-demo.js",
+    "presentacion:instalar": "npm --prefix presentacion install",
+    "presentacion:capturas": "npm --prefix presentacion run capturas",
+    "presentacion:generar": "npm --prefix presentacion run generar"
+  }
+}

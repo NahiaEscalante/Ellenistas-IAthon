@@ -31,13 +31,13 @@ Link publicado: https://claude.ai/artifact/Wf9AC2YLhUBTwrXTeZM6po
 
 ## Cómo correrlo en local
 
-Es HTML, CSS y JavaScript puro: no necesita instalación ni build. Desde esta carpeta, ejecuta:
+Es HTML, CSS y JavaScript puro: no necesita instalación ni build. Desde la raíz del repositorio:
 
 ```bash
-python3 -m http.server 8765
+npm start
 ```
 
-Luego abre `http://localhost:8765/_preview.html` en el navegador.
+Luego abre `http://localhost:8765`. Si prefieres no usar Node, desde esta carpeta también funciona `python3 -m http.server 8765` y abrir `http://localhost:8765/_preview.html`.
 
 `index.html` es la versión que se publica como Artifact: no lleva `<!doctype>` porque la plataforma lo agrega al publicar. `_preview.html` es la misma página con el encabezado completo, lista para abrir en local.
 
@@ -55,7 +55,7 @@ Luego abre `http://localhost:8765/_preview.html` en el navegador.
 | `match.js` | Match en vivo de Rastro: campañas → Rastro → dashboard, con la cascada de match |
 | `app.js` | Navegación entre pestañas |
 | `logo-160.png`, `brasper-logo.png` | Logo de Brasper |
-| `docs/data_campanas_meta_tiktok.md` | Investigación: qué data entregan Meta y TikTok y cómo se une con cada cliente |
+| `../docs/data_campanas_meta_tiktok.md` | Investigación: qué data entregan Meta y TikTok y cómo se une con cada cliente |
 
 ## Notas
 
