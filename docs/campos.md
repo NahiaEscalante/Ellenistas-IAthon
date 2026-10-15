@@ -53,7 +53,7 @@ Leyenda de **Obligatorio para emitir**: ✅ sí · ⚠️ condicional · — no 
 | `descuento_variable` | decimal (%) | `40.00` | Vista Contabilidad (Descuento variable) | — | Descuento sobre la comisión (promoción o negociación). |
 | `comision_base` | decimal(2) | `5.08` | Vista Contabilidad (Comisión final interna) | ✅ | **Valor de venta** del comprobante (base imponible). |
 | `igv` | decimal(2) | `0.92` | Vista Contabilidad (Impuesto final interno) | ✅ | 18 % de la base. |
-| `venta_final` | decimal(2) | `6.00` | Vista Contabilidad (Venta final) | ✅ | **Total del comprobante** = base + IGV. ⚠️ En el módulo actual, el total de la boleta **no coincide** con esta columna (ver el README). |
+| `venta_final` | decimal(2) | `6.00` | Vista Contabilidad (Venta final) | ✅ | **Total del comprobante** = base + IGV. ⚠️ En el módulo actual, el total de la boleta **no coincide** con esta columna (ver el diagnóstico). |
 
 **Relaciones esperadas** (sirven para que el agente **valide automáticamente** cada operación):
 

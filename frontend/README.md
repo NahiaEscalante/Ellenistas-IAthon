@@ -26,20 +26,20 @@ La demo abre en la pestaña 1.
    - lee cada fila;
    - valida las reglas antes de emitir;
    - llena **KeyFácil** si la ruta es Perú → Brasil o **Omie** si es Brasil → Perú;
-   - emite el comprobante y valida el PDF.
+   - emite el comprobante y anota su número en el dashboard.
 
-   El switch **Rediseñada** cambia la pantalla de destino: el robot la reconoce con visión y sigue trabajando. La operación PxB-001529 se aparta a propósito, porque sus montos no cuadran.
+   La operación PxB-001529 se aparta a propósito, porque sus montos no cuadran.
 3. **Cómo funciona.** Muestra los diagramas de las dos soluciones, en el mismo orden (primero el ARM y luego el RPA), y cómo se une cada campaña con cada cliente.
 
 ## Cómo correrlo en local
 
-Es HTML, CSS y JavaScript puro: no necesita instalación ni build. Desde esta carpeta, ejecuta:
+Es HTML, CSS y JavaScript puro: no necesita instalación ni build. Desde la raíz del repositorio:
 
 ```bash
-python3 -m http.server 8765
+npm start
 ```
 
-Luego abre `http://localhost:8765/_preview.html` en el navegador.
+Luego abre `http://localhost:8765`. Si prefieres no usar Node, desde esta carpeta también funciona `python3 -m http.server 8765` y abrir `http://localhost:8765/_preview.html`.
 
 `index.html` es la versión que se publica como Artifact: no lleva `<!doctype>` porque la plataforma lo agrega al publicar. `_preview.html` es la misma página con el encabezado completo, lista para abrir en local.
 
@@ -54,10 +54,10 @@ Luego abre `http://localhost:8765/_preview.html` en el navegador.
 | `web.js` | Entrada a la Solución 1 desde el dashboard y el portal hacia el ARM |
 | `arm.js` | Solución 1, el ARM: mascotas, agentes, chat guionado, Copiloto, constelación y "Cómo funciona" |
 | `match.js` | Match en vivo de Rastro: campañas → Rastro → dashboard, con la cascada de match |
-| `rpa.js` | Solución 2: robot, formularios de KeyFácil y Omie, reglas, visión IA y validación del PDF |
+| `rpa.js` | Solución 2: robot, formularios de KeyFácil y Omie, reglas, emisión y registro del número en el dashboard |
 | `app.js` | Navegación entre pestañas y la escena con la que abre la demo |
 | `logo-160.png`, `brasper-logo.png` | Logo de Brasper |
-| `docs/data_campanas_meta_tiktok.md` | Investigación: qué data entregan Meta y TikTok y cómo se une con cada cliente |
+| `../docs/data_campanas_meta_tiktok.md` | Investigación: qué data entregan Meta y TikTok y cómo se une con cada cliente |
 
 ## Notas
 

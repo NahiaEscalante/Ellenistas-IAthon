@@ -1,4 +1,4 @@
-/* Toma las capturas de la demo (brasper-ia-demo) que usa el pitch y exporta las mascotas de los agentes.
+/* Toma las capturas de la demo (frontend) que usa el pitch y exporta las mascotas de los agentes.
    Levanta su propio servidor estático, así que no hace falta tener otro corriendo.
    Uso: npm run capturas   →   escribe en assets/ */
 const http = require('http');
@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
 
-const DEMO = path.resolve(__dirname, '..', 'brasper-ia-demo');
+const DEMO = path.resolve(__dirname, '..', 'frontend');
 const OUT = path.join(__dirname, 'assets');
 const VIEW = { width: 1440, height: 810 };
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css', '.png': 'image/png', '.svg': 'image/svg+xml' };
@@ -46,12 +46,6 @@ const esperar = (page, fn, arg, timeout = 120000) => page.waitForFunction(fn, ar
   await esperar(page, () => document.querySelector('#k-done').textContent.startsWith('1/'));
   await esperar(page, () => document.querySelector('#bview .kf') && document.querySelectorAll('#bview input.filled').length >= 9 && document.querySelector('.packet'));
   await foto(page, 'rpa-trabajando');
-
-  // La plataforma cambia de diseño: el robot la reconoce con visión
-  await page.click('#lay-seg button[data-l="B"]');
-  await esperar(page, () => document.querySelectorAll('#bview .vbox').length >= 12);
-  await page.waitForTimeout(300);
-  await foto(page, 'rpa-vision');
 
   // PxB-001529 no cuadra y se aparta para revisión humana
   await esperar(page, () => document.querySelector('#rules .rule.bad') && document.querySelector('#toast.show.bad'));
