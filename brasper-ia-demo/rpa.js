@@ -1,4 +1,4 @@
-/* Solución 1 · RPA de facturación: lee la vista Contabilidad de Brasper y llena KeyFácil (Perú → Brasil) u Omie (Brasil → Perú). */
+/* Solución 2 · RPA de facturación: lee la vista Contabilidad de Brasper y llena KeyFácil (Perú → Brasil) u Omie (Brasil → Perú). */
 (function () {
   'use strict';
   const { $, $$, esc, sleep, nf, ptbr, ic, brasperScreen } = UI;

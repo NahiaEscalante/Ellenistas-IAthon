@@ -1,4 +1,4 @@
-/* Solución 2 · Entrada: la plataforma actual de Brasper con el acceso al ARM y el portal hacia el nuevo mundo. */
+/* Solución 1 · Entrada: la plataforma actual de Brasper con el acceso al ARM y el portal hacia el nuevo mundo. */
 (function () {
   'use strict';
   const { $, $$, sleep, ic, brasperScreen } = UI;

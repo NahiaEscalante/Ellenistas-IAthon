@@ -444,16 +444,9 @@
   function archView() {
     const col = (title, nodes) => `<div class="flow-col"><h4>${title}</h4>${nodes.map(n => `<div class="node ${n[2] ? 'ac' : ''}" style="${n[2] ? `--ac:${n[2]}` : ''}">${n[0]}<small>${n[1]}</small></div>`).join('')}</div>`;
     return `
-      <div class="hello rise"><h2>Cómo <em>funciona</em></h2><p>El RPA elimina el tipeo. El ARM convierte datos en decisiones.</p></div>
+      <div class="hello rise"><h2>Cómo <em>funciona</em></h2><p>El ARM convierte datos en decisiones. El RPA elimina el tipeo.</p></div>
       <div class="arch rise" style="--d:.1s">
-        <h3>Solución 1 · RPA de facturación</h3>
-        <div class="flow">
-          ${col('Origen', [['Dashboard Brasper', 'vista Contabilidad'], ['Sin acceso a la base', 'trabaja sobre la interfaz']])}
-          ${col('Agente RPA', [['Lee la fila', 'como el contador'], ['Valida reglas', 'boleta/factura, IGV'], ['Visión IA', 'si cambia la pantalla', '#06B6D4']])}
-          ${col('Emisión', [['KeyFácil', 'Perú → Brasil'], ['Omie', 'Brasil → Perú']])}
-          ${col('Control', [['IA valida el PDF', 'contra el dashboard', '#06B6D4'], ['Excepciones', 'a revisión humana']])}
-        </div>
-        <h3>Solución 2 · ARM con agentes</h3>
+        <h3>Solución 1 · ARM con agentes</h3>
         <div class="flow">
           ${col('Fuentes', [['Meta Ads API', 'gasto, clics, edad, región'], ['WhatsApp', 'referral · ctwa_clid'], ['TikTok', 'reporte + ttclid'], ['Web Brasper', 'UTM · fbclid · calculadora'], ['Bancos', 'saldos por hora']])}
           ${col('Unión por cliente', [['touchpoints', 'campaña, anuncio, click_id'], ['customer_attribution', 'primer y último toque'], ['com_iathon', 'user.user · transactions']])}
@@ -468,6 +461,13 @@
             <tr><td><b>TikTok</b></td><td>Totales + <code>ttclid</code></td><td>Web → registro</td></tr>
             <tr><td><b>Eventos</b></td><td>QR con UTM o cupón</td><td><code>transaction.coupons</code></td></tr>
           </tbody></table></div>
+        </div>
+        <h3>Solución 2 · RPA de facturación</h3>
+        <div class="flow">
+          ${col('Origen', [['Dashboard Brasper', 'vista Contabilidad'], ['Sin acceso a la base', 'trabaja sobre la interfaz']])}
+          ${col('Agente RPA', [['Lee la fila', 'como el contador'], ['Valida reglas', 'boleta/factura, IGV'], ['Visión IA', 'si cambia la pantalla', '#06B6D4']])}
+          ${col('Emisión', [['KeyFácil', 'Perú → Brasil'], ['Omie', 'Brasil → Perú']])}
+          ${col('Control', [['IA valida el PDF', 'contra el dashboard', '#06B6D4'], ['Excepciones', 'a revisión humana']])}
         </div>
       </div>`;
   }

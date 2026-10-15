@@ -35,7 +35,9 @@ const esperar = (page, fn, arg, timeout = 120000) => page.waitForFunction(fn, ar
   page.on('pageerror', e => console.error('  ! error en la página:', e.message));
   await page.goto(base, { waitUntil: 'networkidle' });
 
-  console.log('Solución 1 · RPA');
+  console.log('RPA');
+  // La demo abre en el ARM (pestaña 1): primero se pasa a la pestaña del RPA
+  await page.click('.ptab[data-go="rpa"]');
   await page.click('#launcher');
   await page.waitForSelector('#rpa-root.active');
   await page.waitForTimeout(1600);
@@ -61,7 +63,7 @@ const esperar = (page, fn, arg, timeout = 120000) => page.waitForFunction(fn, ar
   await page.waitForTimeout(900);
   await foto(page, 'rpa-final');
 
-  console.log('Solución 2 · ARM');
+  console.log('ARM');
   await page.click('.ptab[data-go="web"]');
   await page.waitForSelector('#arm-float');
   await page.waitForTimeout(400);

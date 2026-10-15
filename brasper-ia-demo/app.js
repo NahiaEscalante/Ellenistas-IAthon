@@ -2,15 +2,16 @@
 (function () {
   'use strict';
   const { $$ } = UI;
+  // Orden de la demo: 1 · ARM (entra por el dashboard: escena web), 2 · RPA, y Cómo funciona
   const scenes = {
-    rpa: () => RPA.render(),
     web: () => window.WEB && WEB.render(),
     arm: () => window.ARM && ARM.render(),
+    rpa: () => window.RPA && RPA.render(),
     arch: () => window.ARM && ARM.renderArch()
   };
   const built = {};
   function go(name, force) {
-    if (!scenes[name]) name = 'rpa';
+    if (!scenes[name]) name = 'web';
     $$('.stage').forEach(s => s.classList.toggle('on', s.id === 'stage-' + name));
     const tab = name === 'arm' ? 'web' : name;
     $$('.ptab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.go === tab)));
@@ -24,5 +25,5 @@
   UI.initTips();
   window.APP = { go };
   const h = (location.hash || '').replace('#', '');
-  go(scenes[h] ? h : 'rpa');
+  go(scenes[h] ? h : 'web');
 })();
